@@ -14,11 +14,17 @@ public static class MauiProgram {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
-        builder.Services.AddSingleton<MainViewModel>();
-        builder.Services.AddTransient<TokenViewModel>();
 
-        builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddTransient<TokenPage>();
+        // to check if the device has access to internet
+        builder.Services.AddSingleton(Connectivity.Current);
+
+        builder.Services.AddSingleton<MainViewModel>()
+            .AddTransient<LoginViewModel>()
+            .AddTransient<RegisterViewModel>();
+
+        builder.Services.AddSingleton<MainPage>()
+            .AddTransient<LoginPage>()
+            .AddTransient<RegisterPage>();
 
         return builder.Build();
     }

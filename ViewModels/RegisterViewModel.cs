@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TokenCounter.ViewModels;
-public class TokenViewModel : BaseViewModel
-{
 
+public class RegisterViewModel : BaseViewModel
+{
 }

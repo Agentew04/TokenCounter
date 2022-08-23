@@ -9,6 +9,7 @@ namespace TokenCounter.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
+
         [ObservableProperty]
         public bool isLoggedIn = false;
 
@@ -24,14 +25,18 @@ namespace TokenCounter.ViewModels
                 "Type the amount of tokens to be added",
                 "Add", "Cancel",
                 "0", -1, Keyboard.Numeric);
-            bool canParse = int.TryParse(response, out int tokenAmont);
+
+            // sanitize string
+            response = new string(response.Where(c => char.IsDigit(c)).ToArray());
+            response = response == "" ? "0" : response;
+
+            int tokenAmont = int.Parse(response);
             if (!canParse)
                 return;
             tokenAmont = Math.Abs(tokenAmont);
             Tokens += tokenAmont;
-            await Application.Current.MainPage.DisplaySnackbar(
-                $"Added {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."),
-                duration: new TimeSpan(0, 0, 5));
+            using var toast = Toast.Make($"Added {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."));
+            await toast.Show();
         }
 
         [ICommand]
@@ -40,14 +45,16 @@ namespace TokenCounter.ViewModels
                 "Type the amount of tokens to be removed",
                 "Remove", "Cancel",
                 "0", -1, Keyboard.Numeric);
-            bool canParse = int.TryParse(response, out int tokenAmont);
-            if (!canParse)
-                return;
+
+            // sanitize string
+            response = new string(response.Where(c => char.IsDigit(c)).ToArray());
+            response = response == "" ? "0" : response;
+
+            int tokenAmont = int.Parse(response);
             tokenAmont = Math.Abs(tokenAmont);
             Tokens -= tokenAmont;
-            await Application.Current.MainPage.DisplaySnackbar(
-                $"Removed {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."),
-                duration: new TimeSpan(0, 0, 5));
+            using var toast = Toast.Make($"Removed {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."));
+            await toast.Show();
         }
     }
 }
