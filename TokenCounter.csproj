@@ -13,7 +13,7 @@
         <ApplicationTitle>TokenCounter</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.tokencounter</ApplicationId>
+        <ApplicationId>io.github.Agentew04.tokencounter</ApplicationId>
         <ApplicationId Condition="$(TargetFramework.Contains('-windows'))">EDBFD408-572C-4E3D-849A-40B72E1CFE1C</ApplicationId>
 
         <!-- Versions -->
@@ -51,6 +51,18 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="Views\LoginPage.xaml.cs">
+        <DependentUpon>LoginPage.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="Views\LoginPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+      <MauiXaml Update="Views\RegisterPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="Views\TokenPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>

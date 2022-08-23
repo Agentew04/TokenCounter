@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
 using TokenCounter.Views;
@@ -8,51 +10,44 @@ namespace TokenCounter.ViewModels
     public partial class MainViewModel : BaseViewModel
     {
         [ObservableProperty]
-        public string username;
+        public bool isLoggedIn = false;
 
         [ObservableProperty]
-        public string password;
+        public string username = String.Empty;
 
         [ObservableProperty]
-        public bool isWorking;
+        public int tokens = 0;
 
         [ICommand]
-        async Task Login()
-        {
-            if (IsWorking)
+        async Task AddTokens(){
+            string response = await Application.Current.MainPage.DisplayPromptAsync("Amount",
+                "Type the amount of tokens to be added",
+                "Add", "Cancel",
+                "0", -1, Keyboard.Numeric);
+            bool canParse = int.TryParse(response, out int tokenAmont);
+            if (!canParse)
                 return;
-            IsWorking = true;
-            Debug.Write($"Logging in as {Username}");
-            await Task.Delay(1000);
-            Debug.Write(".");
-            await Task.Delay(1000);
-            Debug.Write(".");
-            await Task.Delay(1000);
-            Debug.WriteLine(".");
-            Debug.WriteLine($"Logged in as {Username}");
-
-            // todo add login method
-            bool loggedIn = true;
-            if (loggedIn)
-            {
-                await Shell.Current.GoToAsync(nameof(TokenPage));
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Failed to login", "Wrong username or password!", "Back");
-            }
-            IsWorking = false;
+            tokenAmont = Math.Abs(tokenAmont);
+            Tokens += tokenAmont;
+            await Application.Current.MainPage.DisplaySnackbar(
+                $"Added {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."),
+                duration: new TimeSpan(0, 0, 5));
         }
 
         [ICommand]
-        async Task Register(){
-            Debug.WriteLine($"Registering in as {Username}");
-            await Task.Delay(1000);
-            Debug.Write(".");
-            await Task.Delay(1000);
-            Debug.Write(".");
-            await Task.Delay(1000);
-            Debug.Write(".\n");
+        async Task RemoveTokens(){
+            string response = await Application.Current.MainPage.DisplayPromptAsync("Amount",
+                "Type the amount of tokens to be removed",
+                "Remove", "Cancel",
+                "0", -1, Keyboard.Numeric);
+            bool canParse = int.TryParse(response, out int tokenAmont);
+            if (!canParse)
+                return;
+            tokenAmont = Math.Abs(tokenAmont);
+            Tokens -= tokenAmont;
+            await Application.Current.MainPage.DisplaySnackbar(
+                $"Removed {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."),
+                duration: new TimeSpan(0, 0, 5));
         }
     }
 }

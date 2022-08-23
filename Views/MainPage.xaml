@@ -5,19 +5,19 @@
              xmlns:vm="clr-namespace:TokenCounter.ViewModels"
              x:Class="TokenCounter.Views.MainPage"
              x:DataType="vm:MainViewModel"
-             Title="Login">
+             Title="TokenCounter">
     <ContentPage.Resources>
         <ResourceDictionary>
             <tk:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout HorizontalOptions="Center" MinimumWidthRequest="500" VerticalOptions="Center">
-        <Label Text="Username: " HorizontalOptions="StartAndExpand" Margin="4"/>
-        <Entry Text="{Binding Username}" Margin="0,0,0,15" />
-        <Label Text="Password: " HorizontalOptions="StartAndExpand" Margin="4"/>
-        <Entry Text="{Binding Password}" IsPassword="True" Margin="0,0,0,15"/>
-        <Button Text="Login" Command="{Binding LoginCommand}" Margin="15" Padding="5"
-                MaximumWidthRequest="200" IsEnabled="{Binding IsWorking, Converter={StaticResource InvertedBoolConverter }}"/>
-        <ProgressBar IsVisible="{Binding IsWorking}" HorizontalOptions="Fill"/>
-    </StackLayout>
+    <ScrollView>
+        <VerticalStackLayout HorizontalOptions="Center">
+            <Label x:Name="tokenDisplay" Text="{Binding Tokens, StringFormat='Tokens: {0}'}"/>
+            <HorizontalStackLayout>
+                <Button Text="+" Command="{Binding AddTokensCommand}" />
+                <Button Text="-" Command="{Binding RemoveTokensCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
