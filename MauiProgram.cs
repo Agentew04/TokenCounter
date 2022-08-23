@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using TokenCounter.Services;
 using TokenCounter.ViewModels;
 using TokenCounter.Views;
 
@@ -15,8 +16,9 @@ public static class MauiProgram {
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        // to check if the device has access to internet
-        builder.Services.AddSingleton(Connectivity.Current);
+        builder.Services.AddSingleton(Connectivity.Current)
+            .AddSingleton<UserService>()
+            .AddSingleton<TokenService>();
 
         builder.Services.AddSingleton<MainViewModel>()
             .AddTransient<LoginViewModel>()
