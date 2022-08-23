@@ -9,51 +9,79 @@ namespace TokenCounter.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
+        public MainViewModel()
+        {
+            Title = "";
+        }
 
         [ObservableProperty]
-        public bool isLoggedIn = false;
+        bool isLoggedIn = false;
 
         [ObservableProperty]
-        public string username = String.Empty;
+        string username = String.Empty;
 
         [ObservableProperty]
-        public int tokens = 0;
+        int tokens = 0;
 
         [ICommand]
         async Task AddTokens(){
+            if (IsBusy)
+                return;
+            IsBusy = true;
+
             string response = await Application.Current.MainPage.DisplayPromptAsync("Amount",
                 "Type the amount of tokens to be added",
-                "Add", "Cancel",
-                "0", -1, Keyboard.Numeric);
+                "Add", "Cancel", "0");
 
             // sanitize string
+            if (response is null)
+            {
+                IsBusy = false;
+                return;
+            }
             response = new string(response.Where(c => char.IsDigit(c)).ToArray());
             response = response == "" ? "0" : response;
 
-            int tokenAmont = int.Parse(response);
-            if (!canParse)
-                return;
-            tokenAmont = Math.Abs(tokenAmont);
-            Tokens += tokenAmont;
-            using var toast = Toast.Make($"Added {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."));
+            // try parse to not overflow/underflow
+            bool parsed = int.TryParse(response, out int tokenAmount);
+            if (!parsed)
+                tokenAmount = 0;
+            tokenAmount = Math.Abs(tokenAmount);
+            Tokens += tokenAmount;
+            string message = tokenAmount > 0 ? ($"Added {tokenAmount} " + (tokenAmount > 1 ? "tokens." : "token.")) :
+                "Cannot add 0 tokens!";
+            IsBusy = false;
+            using var toast = Toast.Make(message);
             await toast.Show();
         }
 
         [ICommand]
         async Task RemoveTokens(){
+            if (IsBusy)
+                return;
+            IsBusy = true;
             string response = await Application.Current.MainPage.DisplayPromptAsync("Amount",
                 "Type the amount of tokens to be removed",
-                "Remove", "Cancel",
-                "0", -1, Keyboard.Numeric);
+                "Remove", "Cancel", "0");
 
             // sanitize string
+            if (response is null)
+            {
+                IsBusy = false;
+                return;
+            }
             response = new string(response.Where(c => char.IsDigit(c)).ToArray());
             response = response == "" ? "0" : response;
 
-            int tokenAmont = int.Parse(response);
-            tokenAmont = Math.Abs(tokenAmont);
-            Tokens -= tokenAmont;
-            using var toast = Toast.Make($"Removed {tokenAmont} " + (tokenAmont > 1 ? "tokens." : "token."));
+            bool parsed = int.TryParse(response, out int tokenAmount);
+            if (!parsed)
+                tokenAmount = 0;
+            tokenAmount = Math.Abs(tokenAmount);
+            Tokens -= tokenAmount;
+            string message = tokenAmount > 0 ? ($"Removed {tokenAmount} " + (tokenAmount > 1 ? "tokens." : "token.")) :
+                "Cannot remove 0 tokens!";
+            IsBusy = false;
+            using var toast = Toast.Make(message);
             await toast.Show();
         }
     }

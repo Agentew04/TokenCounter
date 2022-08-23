@@ -11,13 +11,28 @@
             <tk:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView>
-        <VerticalStackLayout HorizontalOptions="Center">
-            <Label x:Name="tokenDisplay" Text="{Binding Tokens, StringFormat='Tokens: {0}'}"/>
-            <HorizontalStackLayout>
-                <Button Text="+" Command="{Binding AddTokensCommand}" />
-                <Button Text="-" Command="{Binding RemoveTokensCommand}" />
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+    <Grid RowDefinitions="3*, *, 3*"
+          ColumnDefinitions="*, *"
+          ColumnSpacing="10">
+        
+        <Label Text="{Binding Tokens, StringFormat='Tokens: {0}'}"
+               Grid.ColumnSpan="2" 
+               HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand"
+               FontSize="Title"/>
+        
+        <Button Text="+" Command="{Binding AddTokensCommand}" 
+                Grid.Row="1" Margin="15" 
+                FontAttributes="Bold" FontSize="Large"/>
+        <Button Text="-" Command="{Binding RemoveTokensCommand}" 
+                Grid.Row="1" Grid.Column="1" Margin="15"
+                FontAttributes="Bold" FontSize="Large"/>
+        <ActivityIndicator Grid.Row="2" Grid.ColumnSpan="2"
+                           IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           Margin="100"/>
+        <Label Text="{Binding Username, StringFormat='Logged in as: {0}'}"
+               Grid.Row="2" Grid.ColumnSpan="2"
+               HorizontalOptions="Center" VerticalOptions="End"
+               Padding="10"/>
+    </Grid>
 </ContentPage>

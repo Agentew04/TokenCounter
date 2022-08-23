@@ -12,6 +12,7 @@ public class LoginViewModel : BaseViewModel
 	IConnectivity _connectivity;
 	public LoginViewModel(IConnectivity connectivity)
 	{
+		Title = "Login";
 		_connectivity = connectivity;
 	}
 }
