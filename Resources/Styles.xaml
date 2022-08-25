@@ -20,6 +20,13 @@
     <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}"/>
     <SolidColorBrush x:Key="MidGrayBrush" Color="{StaticResource MidGray}"/>
     <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGray}"/>
+    <SolidColorBrush x:Key="TransparentBrush" Color="Transparent"/>
+    <LinearGradientBrush x:Key="GrayGradientBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="{AppThemeBinding Dark={StaticResource DarkGray}, Light={StaticResource LightGray}}"
+                          Offset="0.1" />
+        <GradientStop Color="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource White}}"
+                          Offset="0.75" />
+    </LinearGradientBrush>
 
     <Color x:Key="Yellow100Accent">#F7B548</Color>
     <Color x:Key="Yellow200Accent">#FFD590</Color>
@@ -358,10 +365,10 @@
     </Style>
 
     <Style TargetType="Shadow">
-        <Setter Property="Radius" Value="15" />
-        <Setter Property="Opacity" Value="0.5" />
-        <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
-        <Setter Property="Offset" Value="10,10" />
+        <Setter Property="Radius" Value="40" />
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="Offset" Value="20,20" />
     </Style>
 
     <Style TargetType="Slider">

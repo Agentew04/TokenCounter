@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:TokenCounter.ViewModels"
              x:DataType="vm:LoginViewModel"
-             x:Class="TokenCounter.Views.LoginPage">
+             x:Class="TokenCounter.Views.LoginPage"
+             Background="{StaticResource GrayGradientBrush}">
     <ContentView  VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
         <VerticalStackLayout Spacing="10" >
             <Label Text="Username"/>

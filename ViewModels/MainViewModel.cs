@@ -103,4 +103,10 @@ public partial class MainViewModel : BaseViewModel
         Tokens = 0;
     }
 
+    [ICommand]
+    async Task GoToSocialAsync()
+    {
+        await Shell.Current.DisplayAlert("error","gotta create that page!", "ok");
+    }
+
 }
