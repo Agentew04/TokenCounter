@@ -5,9 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TokenCounter.Views"
     Shell.FlyoutBehavior="Disabled">
-
+    <!-- 
+        add this to shell to add nav bar: Shell.FlyoutBehavior="Flyout" 
+        https://docs.microsoft.com/en-us/dotnet/maui/fundamentals/shell/flyout
+    -->
     <ShellContent
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />
 </Shell>

@@ -1,9 +1,12 @@
+using TokenCounter.ViewModels;
+
 namespace TokenCounter.Views;
 
 public partial class RegisterPage : ContentPage
 {
-	public RegisterPage()
+	public RegisterPage(RegisterViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
 	}
 }

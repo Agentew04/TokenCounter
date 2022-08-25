@@ -11,6 +11,14 @@
             <tk:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="SOCIAL"
+                     Order="Primary"/>
+        <ToolbarItem Text="Logout" Order="Secondary"
+                     IsEnabled="{Binding IsLoggedIn}"
+                     Command="{Binding LogoutCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <Grid RowDefinitions="3*, *, 3*"
           ColumnDefinitions="*, *"
           ColumnSpacing="10">
@@ -22,17 +30,27 @@
         
         <Button Text="+" Command="{Binding AddTokensCommand}" 
                 Grid.Row="1" Margin="15" 
-                FontAttributes="Bold" FontSize="Large"/>
+                FontAttributes="Bold" FontSize="Large"
+                IsEnabled="{Binding IsLoggedIn}"/>
         <Button Text="-" Command="{Binding RemoveTokensCommand}" 
                 Grid.Row="1" Grid.Column="1" Margin="15"
-                FontAttributes="Bold" FontSize="Large"/>
+                FontAttributes="Bold" FontSize="Large"
+                IsEnabled="{Binding IsLoggedIn}"/>
         <ActivityIndicator Grid.Row="2" Grid.ColumnSpan="2"
                            IsVisible="{Binding IsBusy}"
                            IsRunning="{Binding IsBusy}"
                            Margin="100"/>
+        
         <Label Text="{Binding Username, StringFormat='Logged in as: {0}'}"
                Grid.Row="2" Grid.ColumnSpan="2"
                HorizontalOptions="Center" VerticalOptions="End"
-               Padding="10"/>
+               Padding="10"
+               IsVisible="{Binding IsLoggedIn}"/>
+        <Button Text="Login"
+               Grid.Row="2" Grid.ColumnSpan="2"
+               HorizontalOptions="Center" VerticalOptions="End"
+               Padding="10" Margin="10"
+               IsVisible="{Binding IsNotLoggedIn}"
+               Command="{Binding GoToLoginCommand}"/>
     </Grid>
 </ContentPage>
