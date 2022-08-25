@@ -25,7 +25,7 @@ public partial class RegisterViewModel : BaseViewModel
     [ObservableProperty]
     string passwordAgain;
 
-    [ICommand]
+    [RelayCommand]
     async Task TryRegisterAsync()
     {
         Username = "rodrigo";

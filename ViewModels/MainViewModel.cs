@@ -17,8 +17,8 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [ObservableProperty]
-    [AlsoNotifyChangeFor(nameof(IsLoggedIn))]
-    [AlsoNotifyChangeFor(nameof(IsNotLoggedIn))]
+    [NotifyPropertyChangedFor(nameof(IsLoggedIn))]
+    [NotifyPropertyChangedFor(nameof(IsNotLoggedIn))]
     string username;
 
     public bool IsLoggedIn => !string.IsNullOrEmpty(Username);
@@ -28,7 +28,7 @@ public partial class MainViewModel : BaseViewModel
     [ObservableProperty]
     int tokens = 0;
 
-    [ICommand]
+    [RelayCommand]
     async Task AddTokens(){
         if (IsBusy)
             return;
@@ -60,7 +60,7 @@ public partial class MainViewModel : BaseViewModel
         await toast.Show();
     }
 
-    [ICommand]
+    [RelayCommand]
     async Task RemoveTokens(){
         if (IsBusy)
             return;
@@ -90,20 +90,20 @@ public partial class MainViewModel : BaseViewModel
         await toast.Show();
     }
 
-    [ICommand]
+    [RelayCommand]
     async Task GoToLoginAsync()
     {
         await Shell.Current.GoToAsync(nameof(LoginPage));
     }
 
-    [ICommand]
+    [RelayCommand]
     void Logout()
     {
         Username = string.Empty;
         Tokens = 0;
     }
 
-    [ICommand]
+    [RelayCommand]
     async Task GoToSocialAsync()
     {
         await Shell.Current.DisplayAlert("error","gotta create that page!", "ok");

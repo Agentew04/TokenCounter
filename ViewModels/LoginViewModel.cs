@@ -29,13 +29,13 @@ public partial class LoginViewModel : BaseViewModel
 	[ObservableProperty]
 	string password = string.Empty;
 
-	[ICommand]
+	[RelayCommand]
 	async Task GoToRegisterAsync()
 	{
 		await Shell.Current.GoToAsync($"../{nameof(RegisterPage)}");
 	}
 
-	[ICommand]
+	[RelayCommand]
 	async Task TryLoginAsync()
 	{
 		Username = "rodrigo";
