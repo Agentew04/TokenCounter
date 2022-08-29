@@ -11,13 +11,11 @@ using TokenCounter.Views;
 
 namespace TokenCounter.ViewModels;
 
-public partial class LoginViewModel : BaseViewModel
-{
+public partial class LoginViewModel : BaseViewModel {
 	// used to check network for login
 	IConnectivity _connectivityService;
 	UserService _userService;
-	public LoginViewModel(IConnectivity connectivityService, UserService userService)
-	{
+	public LoginViewModel(IConnectivity connectivityService, UserService userService) {
 		Title = "Login";
         _connectivityService = connectivityService;
 		_userService = userService;
@@ -30,14 +28,12 @@ public partial class LoginViewModel : BaseViewModel
 	string password = string.Empty;
 
 	[RelayCommand]
-	async Task GoToRegisterAsync()
-	{
+	async Task GoToRegisterAsync() {
 		await Shell.Current.GoToAsync($"../{nameof(RegisterPage)}");
 	}
 
 	[RelayCommand]
-	async Task TryLoginAsync()
-	{
+	async Task TryLoginAsync() {
 		Username = "rodrigo";
 		Debug.WriteLine($"trying to navigate back with {Username}");
 		await Shell.Current.GoToAsync($"..?Username={Username}", true);

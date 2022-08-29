@@ -8,10 +8,8 @@ using TokenCounter.Views;
 namespace TokenCounter.ViewModels;
 
 [QueryProperty(nameof(Username), nameof(Username))]
-public partial class MainViewModel : BaseViewModel
-{
-    public MainViewModel()
-    {
+public partial class MainViewModel : BaseViewModel {
+    public MainViewModel() {
         Title = "";
         Username = string.Empty;
     }
@@ -29,7 +27,7 @@ public partial class MainViewModel : BaseViewModel
     int tokens = 0;
 
     [RelayCommand]
-    async Task AddTokens(){
+    async Task AddTokens() {
         if (IsBusy)
             return;
         IsBusy = true;
@@ -39,8 +37,7 @@ public partial class MainViewModel : BaseViewModel
             "Add", "Cancel", "0", 7);
 
         // sanitize string
-        if (response is null)
-        {
+        if (response is null) {
             IsBusy = false;
             return;
         }
@@ -61,7 +58,7 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task RemoveTokens(){
+    async Task RemoveTokens() {
         if (IsBusy)
             return;
         IsBusy = true;
@@ -70,8 +67,7 @@ public partial class MainViewModel : BaseViewModel
             "Remove", "Cancel", "0", 7);
 
         // sanitize string
-        if (response is null)
-        {
+        if (response is null) {
             IsBusy = false;
             return;
         }
@@ -91,14 +87,16 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task GoToLoginAsync()
-    {
+    async Task GoToLoginAsync() {
         await Shell.Current.GoToAsync(nameof(LoginPage));
     }
 
     [RelayCommand]
-    void Logout()
-    {
+    async void LogoutAsync() {
+        if (IsNotLoggedIn){
+            await Shell.Current.DisplayAlert("Not logged in", "You need to be logged in for this!", "Ok");
+            return;
+        }
         Username = string.Empty;
         Tokens = 0;
     }
@@ -106,6 +104,10 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand]
     async Task GoToSocialAsync()
     {
+        if (IsNotLoggedIn) {
+            await Shell.Current.DisplayAlert("Not logged in", "You need to be logged in for this!", "Ok");
+            return;
+        }
         await Shell.Current.DisplayAlert("error","gotta create that page!", "ok");
     }
 

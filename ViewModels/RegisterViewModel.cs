@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace TokenCounter.ViewModels;
 
-public partial class RegisterViewModel : BaseViewModel
-{
-	public RegisterViewModel()
-	{
+public partial class RegisterViewModel : BaseViewModel {
+	public RegisterViewModel() {
 		Title = "Register Account";
 	}
 
@@ -26,8 +24,7 @@ public partial class RegisterViewModel : BaseViewModel
     string passwordAgain;
 
     [RelayCommand]
-    async Task TryRegisterAsync()
-    {
+    async Task TryRegisterAsync() {
         Username = "rodrigo";
         Debug.WriteLine($"trying to navigate back with {Username}");
         await Shell.Current.GoToAsync($"..?Username={Username}");

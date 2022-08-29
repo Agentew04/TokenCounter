@@ -10,10 +10,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="SOCIAL"
                      Order="Primary"
-                     IsEnabled="{Binding IsLoggedIn}"
                      Command="{Binding GoToSocialCommand}"/>
         <ToolbarItem Text="Logout" Order="Secondary"
-                     IsEnabled="{Binding IsLoggedIn}"
                      Command="{Binding LogoutCommand}"/>
     </ContentPage.ToolbarItems>
 
@@ -22,10 +20,10 @@
           ColumnSpacing="10">
 
         <Frame Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
-               HasShadow="True" BackgroundColor="{AppThemeBinding Dark=Transparent, Light={StaticResource WhiteBrush}}"
+               HasShadow="{AppThemeBinding Light=True, Dark=False}" BackgroundColor="{AppThemeBinding Dark=Transparent, Light={StaticResource WhiteBrush}}"
                BorderColor="LightGray">
             <Frame.Shadow>
-                <Shadow Brush="{AppThemeBinding Light={StaticResource WhiteBrush}, Dark={StaticResource BlackBrush}}" Opacity="0.8"
+                <Shadow Brush="{StaticResource Black}" Opacity="0.8"
                         Radius="40" Offset="20,20"/>
             </Frame.Shadow>
             <Label Text="{Binding Tokens, StringFormat='Tokens: {0}'}"

@@ -2,10 +2,9 @@
 
 namespace TokenCounter.ViewModels;
 
-public partial class BaseViewModel : ObservableObject
-{
+public partial class BaseViewModel : ObservableObject {
     [ObservableProperty]
-    [AlsoNotifyChangeFor(nameof(IsNotBusy))]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     bool isBusy = false;
 
     public bool IsNotBusy => !IsBusy;
