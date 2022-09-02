@@ -31,9 +31,9 @@ public class UserService
     /// <returns>An auth token if succesful or <see cref="string.Empty"/> if not.</returns>
     public async Task<string> Login(string username, string password)
 	{
-		// TODO make server side auth and client side integration
-		await Task.Delay(1000);
-		return "token";
+        // TODO make authentication and client side integration
+        await Task.Delay(1000);
+		return "dummyAuthToken";
 	}
 
     /// <summary>
@@ -44,8 +44,35 @@ public class UserService
     /// <returns>A tuple with the auth token and if the operation was succesful</returns>
     public async Task<(string authToken, RegisterStatus status)> Register(string username, string password)
 	{
-        // TODO make server side auth and client side integration
+        // TODO make authentication and client side integration
         await Task.Delay(1000);
         return new ("testToken", RegisterStatus.Success);
+    }
+
+    /// <summary>
+    /// Tries to add other user to this user friends list
+    /// </summary>
+    /// <param name="authtoken">The auth token for the current user</param>
+    /// <param name="friendName">The username of the friend</param>
+    /// <returns><see langword="true"/> if the request was successful or 
+    /// <see langword="false"/> if not.</returns>
+    public async Task<bool> AddFriend(string authtoken, string friendName) {
+        // TODO make social integration
+        await Task.Delay(1000);
+        return true;
+    }
+
+    /// <summary>
+    /// Tries to remove other user from this user friends list
+    /// </summary>
+    /// <param name="authtoken">The auth token for the current user</param>
+    /// <param name="friendName">The username of the friend to be removed</param>
+    /// <returns><see langword="true"/> if the request was sucessful or
+    /// <see langword="false"/> if not 
+    /// (if user was not friends, returns <see langword="false"/> too).</returns>
+    public async Task<bool> RemoveFriend(string authtoken, string friendName) {
+        // TODO make social integration
+        await Task.Delay(1000);
+        return true;
     }
 }

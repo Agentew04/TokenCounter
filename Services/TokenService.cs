@@ -22,7 +22,22 @@ public class TokenService
 	/// <param name="amount">The new amount of tokens to be saved</param>
 	public async Task UpdateTokens(string authToken, int amount)
 	{
-		await Task.Delay(100);
+        // TODO integrate with server side db
+        await Task.Delay(100);
 		return;
+	}
+
+	/// <summary>
+	/// Gets the server side amount of tokens a user has
+	/// </summary>
+	/// <param name="authToken">The auth token of the current user</param>
+	/// <param name="username">The username of the person to be looked up for, 
+	/// can be the same bearer of the token</param>
+	/// <returns>The amount of tokens stored server side</returns>
+	public async Task<int> GetTokens(string authToken, string username) {
+		// TODO integrate with server side db
+		await Task.Delay(100);
+		var tokens = new Random().Next(100);
+		return tokens;
 	}
 }
