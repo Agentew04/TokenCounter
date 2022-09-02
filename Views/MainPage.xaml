@@ -31,7 +31,7 @@
                    FontSize="Title"
                    Padding="8"/>
         </Frame>
-
+        <Label Text="{Binding AuthToken}"/>
         <Button Text="+" Command="{Binding AddTokensCommand}" 
                 Grid.Row="1" Margin="15" 
                 FontAttributes="Bold" FontSize="Large"

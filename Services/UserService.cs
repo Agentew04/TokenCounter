@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TokenCounter.Models;
 
 namespace TokenCounter.Services;
 
@@ -74,5 +75,25 @@ public class UserService
         // TODO make social integration
         await Task.Delay(1000);
         return true;
+    }
+
+    /// <summary>
+    /// Tries to get all of the friends of this particular user
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    public async Task<List<User>> GetFriends(string username) {
+        // TODO make social integration
+        await Task.Delay(1000);
+        return new() {
+            new() {
+                Username = "John Doe",
+                Tokens = 15
+            },
+            new() {
+                Username = "Jane Doe",
+                Tokens = 300
+            }
+        };
     }
 }

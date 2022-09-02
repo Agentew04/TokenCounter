@@ -5,14 +5,17 @@
              x:Class="TokenCounter.Views.RegisterPage"
              x:DataType="vm:RegisterViewModel"
              Background="{StaticResource GrayGradientBrush}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button Text="Login"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Command="{Binding TryRegisterCommand}"/>
-    </VerticalStackLayout>
+    <ContentView  VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+        <VerticalStackLayout Spacing="10" >
+            <Label Text="Username"/>
+            <Entry Placeholder="Your username here..."/>
+            <Label Text="Password"/>
+            <Entry Placeholder="Your password here..." IsPassword="True" />
+            <Label Text="Repeat your password"/>
+            <Entry Placeholder="Your password here..." IsPassword="True" />
+
+            <Button Text="Register" Margin="5,15" Padding="5"
+                        Command="{Binding TryRegisterCommand}"/>
+        </VerticalStackLayout>
+    </ContentView>
 </ContentPage>

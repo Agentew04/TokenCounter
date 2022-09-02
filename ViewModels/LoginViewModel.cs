@@ -12,9 +12,9 @@ using TokenCounter.Views;
 namespace TokenCounter.ViewModels;
 
 public partial class LoginViewModel : BaseViewModel {
-	// used to check network for login
-	IConnectivity _connectivityService;
-	UserService _userService;
+    // used to check network for login
+    readonly IConnectivity _connectivityService;
+	readonly UserService _userService;
 	public LoginViewModel(IConnectivity connectivityService, UserService userService) {
 		Title = "Login";
         _connectivityService = connectivityService;
@@ -22,20 +22,36 @@ public partial class LoginViewModel : BaseViewModel {
 	}
 
 	[ObservableProperty]
-	string username = string.Empty;
+	string username = "";
 
 	[ObservableProperty]
-	string password = string.Empty;
+	string password = "";
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsError))]
+	public string errorMessage = "";
+
+	public bool IsError => string.IsNullOrEmpty(ErrorMessage);
 
 	[RelayCommand]
-	async Task GoToRegisterAsync() {
+	async Task GoToRegister() {
 		await Shell.Current.GoToAsync($"../{nameof(RegisterPage)}");
 	}
 
 	[RelayCommand]
-	async Task TryLoginAsync() {
-		Username = "rodrigo";
-		Debug.WriteLine($"trying to navigate back with {Username}");
-		await Shell.Current.GoToAsync($"..?Username={Username}", true);
+	async Task TryLogin() {
+		IsBusy = true;
+		var res = await _userService.Login(Username, Password);
+
+		if(string.IsNullOrEmpty(res)) {
+			ErrorMessage = "Wrong password!";
+			IsBusy = false;
+			return;
+		}
+		ErrorMessage = "";
+		Debug.WriteLine($"going back to main with ({Username}, {res})");
+
+		IsBusy = false;
+		await Shell.Current.GoToAsync($"..?user={Username}&auth={res}", true);
 	}
 }

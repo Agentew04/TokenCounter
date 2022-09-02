@@ -24,7 +24,7 @@ public partial class RegisterViewModel : BaseViewModel {
     string passwordAgain;
 
     [RelayCommand]
-    async Task TryRegisterAsync() {
+    async Task TryRegister() {
         Username = "rodrigo";
         Debug.WriteLine($"trying to navigate back with {Username}");
         await Shell.Current.GoToAsync($"..?Username={Username}");

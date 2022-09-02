@@ -7,19 +7,23 @@ using TokenCounter.Views;
 
 namespace TokenCounter.ViewModels;
 
-[QueryProperty(nameof(Username), nameof(Username))]
+[QueryProperty(nameof(Username), "user")]
+[QueryProperty(nameof(AuthToken), "auth")]
 public partial class MainViewModel : BaseViewModel {
     public MainViewModel() {
         Title = "";
-        Username = string.Empty;
+        Username = "";
     }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsLoggedIn))]
     [NotifyPropertyChangedFor(nameof(IsNotLoggedIn))]
-    string username;
+    string username = "";
 
-    public bool IsLoggedIn => !string.IsNullOrEmpty(Username);
+    [ObservableProperty]
+    string authToken = "";
+
+    public bool IsLoggedIn => !(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Username));
     public bool IsNotLoggedIn => !IsLoggedIn;
 
 
@@ -87,22 +91,23 @@ public partial class MainViewModel : BaseViewModel {
     }
 
     [RelayCommand]
-    async Task GoToLoginAsync() {
+    async Task GoToLogin() {
         await Shell.Current.GoToAsync(nameof(LoginPage));
     }
 
     [RelayCommand]
-    async void LogoutAsync() {
-        if (IsNotLoggedIn){
+    async void Logout() {
+        if (IsNotLoggedIn) {
             await Shell.Current.DisplayAlert("Not logged in", "You need to be logged in for this!", "Ok");
             return;
         }
-        Username = string.Empty;
+        Username = "";
+        AuthToken = "";
         Tokens = 0;
     }
 
     [RelayCommand]
-    async Task GoToSocialAsync()
+    async Task GoToSocial()
     {
         if (IsNotLoggedIn) {
             await Shell.Current.DisplayAlert("Not logged in", "You need to be logged in for this!", "Ok");

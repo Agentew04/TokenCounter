@@ -11,7 +11,7 @@
             <Entry Placeholder="Your username here..."/>
             <Label Text="Password"/>
             <Entry Placeholder="Your password here..." IsPassword="True" />
-
+            <Label TextColor="Red" Text="{Binding ErrorMessage}" IsVisible="{Binding IsError}"/>
             <Button Text="Login" Margin="5,15" Padding="5"
                         Command="{Binding TryLoginCommand}"/>
 
