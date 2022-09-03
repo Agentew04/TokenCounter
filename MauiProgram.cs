@@ -22,11 +22,13 @@ public static class MauiProgram {
 
         builder.Services.AddSingleton<MainViewModel>()
             .AddTransient<LoginViewModel>()
-            .AddTransient<RegisterViewModel>();
+            .AddTransient<RegisterViewModel>()
+            .AddTransient<SocialViewModel>();
 
         builder.Services.AddSingleton<MainPage>()
             .AddTransient<LoginPage>()
-            .AddTransient<RegisterPage>();
+            .AddTransient<RegisterPage>()
+            .AddTransient<SocialPage>();
 
         return builder.Build();
     }

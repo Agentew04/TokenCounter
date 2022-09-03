@@ -21,9 +21,11 @@ public partial class MainViewModel : BaseViewModel {
     string username = "";
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsLoggedIn))]
+    [NotifyPropertyChangedFor(nameof(IsNotLoggedIn))]
     string authToken = "";
 
-    public bool IsLoggedIn => !(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Username));
+    public bool IsLoggedIn => !(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(AuthToken));
     public bool IsNotLoggedIn => !IsLoggedIn;
 
 
@@ -57,7 +59,7 @@ public partial class MainViewModel : BaseViewModel {
         string message = tokenAmount > 0 ? ($"Added {tokenAmount} " + (tokenAmount > 1 ? "tokens." : "token.")) :
             "Cannot add 0 tokens!";
         IsBusy = false;
-        using var toast = Toast.Make(message);
+        var toast = Toast.Make(message);
         await toast.Show();
     }
 
@@ -68,7 +70,7 @@ public partial class MainViewModel : BaseViewModel {
         IsBusy = true;
         string response = await Application.Current.MainPage.DisplayPromptAsync("Amount",
             "Type the amount of tokens to be removed",
-            "Remove", "Cancel", "0", 7);
+            "Remove", "Cancel", "0", 7, Keyboard.Numeric);
 
         // sanitize string
         if (response is null) {
@@ -86,7 +88,7 @@ public partial class MainViewModel : BaseViewModel {
         string message = tokenAmount > 0 ? ($"Removed {tokenAmount} " + (tokenAmount > 1 ? "tokens." : "token.")) :
             "Cannot remove 0 tokens!";
         IsBusy = false;
-        using var toast = Toast.Make(message);
+        var toast = Toast.Make(message);
         await toast.Show();
     }
 
@@ -113,7 +115,7 @@ public partial class MainViewModel : BaseViewModel {
             await Shell.Current.DisplayAlert("Not logged in", "You need to be logged in for this!", "Ok");
             return;
         }
-        await Shell.Current.DisplayAlert("error","gotta create that page!", "ok");
+        await Shell.Current.GoToAsync($"./{nameof(SocialPage)}", true);
     }
 
 }

@@ -8,9 +8,16 @@
     <ContentView  VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
         <VerticalStackLayout Spacing="10" >
             <Label Text="Username"/>
-            <Entry Placeholder="Your username here..."/>
+            <Entry Placeholder="Your username here..."
+                   IsSpellCheckEnabled="False" IsTextPredictionEnabled="False"
+                   Text="{Binding Username}" ReturnType="Next" 
+                   Completed="MoveFocusToPassword"/>
             <Label Text="Password"/>
-            <Entry Placeholder="Your password here..." IsPassword="True" />
+            <Entry x:Name="PasswordEntry"
+                   Placeholder="Your password here..." IsPassword="True" 
+                   IsSpellCheckEnabled="False" IsTextPredictionEnabled="False"
+                   Text="{Binding Password}" ReturnType="Done"
+                   ReturnCommand="{Binding TryLoginCommand}"/>
             <Label TextColor="Red" Text="{Binding ErrorMessage}" IsVisible="{Binding IsError}"/>
             <Button Text="Login" Margin="5,15" Padding="5"
                         Command="{Binding TryLoginCommand}"/>

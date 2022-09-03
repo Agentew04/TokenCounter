@@ -2,12 +2,30 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:TokenCounter.ViewModels"
+             xmlns:model="clr-namespace:TokenCounter.Models"
              x:Class="TokenCounter.Views.SocialPage"
              x:DataType="vm:SocialViewModel">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="REFRESH"
+                     Command="{Binding GetFriendsCommand}"
+                     IconImageSource="refresh.svg"/>
+    </ContentPage.ToolbarItems>
+    <RefreshView IsRefreshing="{Binding IsRefreshing}" RefreshColor="{AppThemeBinding Light={StaticResource Primary}, Dark=Black}"
+                 Command="{Binding GetFriendsCommand}"
+                 HorizontalOptions="Center">
+        <CollectionView ItemsSource="{Binding Friends}">
+            <CollectionView.EmptyView>
+                <Label Text="This is empty! Try refreshing" HorizontalOptions="Center" VerticalOptions="Center"
+                       FontAttributes="Bold" FontSize="Large"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:User">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Username}"/>
+                        <Label Text="{Binding Tokens}"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
 </ContentPage>

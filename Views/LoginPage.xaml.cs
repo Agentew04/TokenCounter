@@ -7,4 +7,8 @@ public partial class LoginPage : ContentPage {
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
+
+	private void MoveFocusToPassword(object sender, EventArgs e) {
+		PasswordEntry.Focus();
+    }
 }

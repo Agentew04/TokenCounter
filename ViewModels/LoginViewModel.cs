@@ -40,6 +40,8 @@ public partial class LoginViewModel : BaseViewModel {
 
 	[RelayCommand]
 	async Task TryLogin() {
+		if (IsBusy)
+			return;
 		IsBusy = true;
 		var res = await _userService.Login(Username, Password);
 

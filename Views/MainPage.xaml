@@ -3,16 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:TokenCounter.ViewModels"
+             xmlns:ctrl="clr-namespace:TokenCounter.Controls"
              x:Class="TokenCounter.Views.MainPage"
              x:DataType="vm:MainViewModel"
              Title="TokenCounter"
              Background="{StaticResource GrayGradientBrush}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="SOCIAL"
-                     Order="Primary"
-                     Command="{Binding GoToSocialCommand}"/>
-        <ToolbarItem Text="Logout" Order="Secondary"
-                     Command="{Binding LogoutCommand}"/>
+        <ctrl:BindableToolbarItem
+            Text="SOCIAL" Order="Default"
+            Command="{Binding GoToSocialCommand}"
+            IconImageSource="{AppThemeBinding Light='people_light.svg', Dark='people_dark.svg'}"
+            IsVisible="{Binding IsLoggedIn}"/>
+        <ctrl:BindableToolbarItem 
+            Text="LOGOUT" Order="Default"
+            Command="{Binding LogoutCommand}"
+            IconImageSource="{AppThemeBinding Light='logout_light.svg', Dark='logout_dark.svg'}"
+            IsVisible="{Binding IsLoggedIn}"/>
     </ContentPage.ToolbarItems>
 
     <Grid RowDefinitions="3*, *, 3*"
@@ -35,7 +41,6 @@
                    Padding="8"/>
         </Border>
 
-        <Label Text="{Binding AuthToken}"/>
         <Button Text="+" Command="{Binding AddTokensCommand}" 
                 Grid.Row="1" Margin="15" 
                 FontAttributes="Bold" FontSize="Large"

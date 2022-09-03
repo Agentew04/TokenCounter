@@ -36,7 +36,7 @@ public partial class SocialViewModel : BaseViewModel {
     public ObservableCollection<User> Friends { get; } = new();
 
     [RelayCommand]
-    async void GetFriends() {
+    async Task GetFriends() {
         if (IsBusy)
             return;
 
@@ -60,9 +60,9 @@ public partial class SocialViewModel : BaseViewModel {
         } catch (Exception ex){
             await Shell.Current.DisplayAlert("Error!", $"Error message: {ex.Message}", "Ok");
         } finally {
-            IsBusy = false;
             // this is set to true when the user pulls the refresh view
             IsRefreshing = false;
+            IsBusy = false;
         }
     }
 }
