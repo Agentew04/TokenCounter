@@ -48,7 +48,13 @@ public partial class SocialViewModel : BaseViewModel {
             }
 
             IsBusy = true;
-            var friends = userService.
+            var friends = await userService.GetFriends(username);
+
+            if (Friends.Count != 0)
+                Friends.Clear();
+
+            foreach (var friend in friends)
+                Friends.Add(friend);
             
 
         } catch (Exception ex){

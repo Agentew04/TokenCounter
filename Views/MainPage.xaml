@@ -18,19 +18,23 @@
     <Grid RowDefinitions="3*, *, 3*"
           ColumnDefinitions="*, *"
           ColumnSpacing="10">
-
-        <Frame Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
-               HasShadow="{AppThemeBinding Light=True, Dark=False}" BackgroundColor="{AppThemeBinding Dark=Transparent, Light={StaticResource WhiteBrush}}"
-               BorderColor="LightGray">
-            <Frame.Shadow>
-                <Shadow Brush="{StaticResource Black}" Opacity="0.8"
-                        Radius="40" Offset="20,20"/>
-            </Frame.Shadow>
+        <Border Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                StrokeThickness="3">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="#000"
+                        Opacity="0.8"
+                        Radius="10"
+                        Offset="20, 20"/>
+            </Border.Shadow>
             <Label Text="{Binding Tokens, StringFormat='Tokens: {0}'}"
                    VerticalTextAlignment="Center" 
                    FontSize="Title"
                    Padding="8"/>
-        </Frame>
+        </Border>
+
         <Label Text="{Binding AuthToken}"/>
         <Button Text="+" Command="{Binding AddTokensCommand}" 
                 Grid.Row="1" Margin="15" 

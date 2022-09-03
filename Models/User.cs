@@ -25,5 +25,5 @@ public class User {
     /// <summary>
     /// A list with all the friends this user is has
     /// </summary>
-    public List<User> Friends { get; set; }
+    public List<string> Friends { get; set; }
 }
