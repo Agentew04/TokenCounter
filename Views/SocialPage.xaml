@@ -8,22 +8,37 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="REFRESH"
                      Command="{Binding GetFriendsCommand}"
-                     IconImageSource="refresh.svg"/>
+                     IconImageSource="{AppThemeBinding Light='refresh_light.svg', Dark='refresh_dark.svg'}"/>
     </ContentPage.ToolbarItems>
     <RefreshView IsRefreshing="{Binding IsRefreshing}" RefreshColor="{AppThemeBinding Light={StaticResource Primary}, Dark=Black}"
                  Command="{Binding GetFriendsCommand}"
                  HorizontalOptions="Center">
-        <CollectionView ItemsSource="{Binding Friends}">
+        <CollectionView ItemsSource="{Binding Friends}" Margin="10,5">
             <CollectionView.EmptyView>
                 <Label Text="This is empty! Try refreshing" HorizontalOptions="Center" VerticalOptions="Center"
                        FontAttributes="Bold" FontSize="Large"/>
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:User">
-                    <HorizontalStackLayout>
-                        <Label Text="{Binding Username}"/>
-                        <Label Text="{Binding Tokens}"/>
-                    </HorizontalStackLayout>
+                    <Border Padding="5" Margin="5" Background="{AppThemeBinding Light={StaticResource White},Dark={StaticResource DarkGray}}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SocialViewModel}}, Path=UserDetailCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5"/>
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="3*,1, 2*">
+                            <Label Text="{Binding Username}" Grid.Column="0"
+                                   Padding="5" VerticalTextAlignment="Center"/>
+                            <Rectangle MaximumHeightRequest="50"
+                                       Background="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" Grid.Column="1"/>
+                            <Label Text="{Binding Tokens, StringFormat='Tokens: {0}'}" Grid.Column="2"
+                                   Padding="5" VerticalTextAlignment="Center"
+                                   HorizontalOptions="Center"/>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

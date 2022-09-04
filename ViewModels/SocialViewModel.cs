@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,11 @@ public partial class SocialViewModel : BaseViewModel {
     public ObservableCollection<User> Friends { get; } = new();
 
     [RelayCommand]
+    async Task UserDetail(User user) {
+        await Shell.Current.DisplayAlert(user.Username, $"This user has {user.Tokens} tokens.", "Ok");
+    }
+
+    [RelayCommand]
     async Task GetFriends() {
         if (IsBusy)
             return;
@@ -48,14 +54,14 @@ public partial class SocialViewModel : BaseViewModel {
             }
 
             IsBusy = true;
-            var friends = await userService.GetFriends(username);
+            var friends = (await userService.GetFriends(username)).OrderByDescending(x=> x.Tokens);
 
             if (Friends.Count != 0)
                 Friends.Clear();
 
             foreach (var friend in friends)
                 Friends.Add(friend);
-            
+
 
         } catch (Exception ex){
             await Shell.Current.DisplayAlert("Error!", $"Error message: {ex.Message}", "Ok");

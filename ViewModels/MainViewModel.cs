@@ -40,7 +40,7 @@ public partial class MainViewModel : BaseViewModel {
 
         string response = await Application.Current.MainPage.DisplayPromptAsync("Amount",
             "Type the amount of tokens to be added",
-            "Add", "Cancel", "0", 7);
+            "Add", "Cancel", "0", 7, Keyboard.Numeric);
 
         // sanitize string
         if (response is null) {
