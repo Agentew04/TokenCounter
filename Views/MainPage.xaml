@@ -7,7 +7,8 @@
              x:Class="TokenCounter.Views.MainPage"
              x:DataType="vm:MainViewModel"
              Title="TokenCounter"
-             Background="{StaticResource GrayGradientBrush}">
+             Background="{StaticResource GrayGradientBrush}"
+             NavigatedTo="ContentPage_NavigatedTo">
     <ContentPage.ToolbarItems>
         <ctrl:BindableToolbarItem
             Text="SOCIAL" Order="Default"

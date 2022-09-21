@@ -25,7 +25,7 @@ public partial class MainViewModel : BaseViewModel {
     [NotifyPropertyChangedFor(nameof(IsNotLoggedIn))]
     string authToken = "";
 
-    public bool IsLoggedIn => !(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(AuthToken));
+    public bool IsLoggedIn => !(string.IsNullOrEmpty(Username)/* || string.IsNullOrEmpty(AuthToken)*/);
     public bool IsNotLoggedIn => !IsLoggedIn;
 
 

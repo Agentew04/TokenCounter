@@ -65,7 +65,12 @@ public partial class RegisterViewModel : BaseViewModel {
             }
         }
         IsBusy = false;
-        if(goBack)
-            await Shell.Current.GoToAsync($"..?user={Username}&auth={res}", true);
+        if (goBack) {
+            Dictionary<string, object> parameters = new() {
+                {"user", Username },
+                {"auth", res }
+            };
+            await Shell.Current.GoToAsync($"..", true, parameters);
+        }
     }
 }

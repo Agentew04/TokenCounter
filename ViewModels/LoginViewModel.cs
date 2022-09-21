@@ -54,6 +54,12 @@ public partial class LoginViewModel : BaseViewModel {
 		Debug.WriteLine($"going back to main with ({Username}, {res})");
 
 		IsBusy = false;
-		await Shell.Current.GoToAsync($"..?user={Username}&auth={res}", true);
+
+		// using dictionary query because maui complains about '==' in base64
+		Dictionary<string, object> parameters = new() {
+			{"user", Username },
+			{"auth", res }
+		};
+		await Shell.Current.GoToAsync($"..", true, parameters);
 	}
 }

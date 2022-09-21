@@ -31,12 +31,14 @@
                         </Border.StrokeShape>
                         <Grid ColumnDefinitions="3*,1, 2*">
                             <Label Text="{Binding Username}" Grid.Column="0"
-                                   Padding="5" VerticalTextAlignment="Center"/>
+                                   Padding="5" VerticalTextAlignment="Center"
+                                   FontAttributes="Bold" FontSize="Medium"/>
                             <Rectangle MaximumHeightRequest="50"
                                        Background="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" Grid.Column="1"/>
                             <Label Text="{Binding Tokens, StringFormat='Tokens: {0}'}" Grid.Column="2"
                                    Padding="5" VerticalTextAlignment="Center"
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   FontSize="Medium"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
